@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Young+Serif&display=swap');
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+:root {
+    /* Fonts */
+    --young-serif: "Young Serif";
+    --montserrat: "Montserrat";
+
+    /* Color Palette 1 */
+    /* --one: #542344;
+    --two: #8A7A95;
+    --three: #808080;
+    --four: #BFD1E5;
+    --five: #D8BFAA;
+    --six: #EBF5EE; */
+
+    /* Color Palette 2 */
+    /* --one: #F75590;
+    --two: #63FC35;
+    --three: #10FFCB;
+    --four: #FBD87F;
+    --five: #FCE4D8;
+    --six: #B5F8FE; */
+
+    /* Color Palette 3 */
+    --one: #00458b;
+    --two: #5ad2e4;
+    --three: #3a85f3;
+    --four: #55499b;
+    --five: #45a989;
+    --six: #a2d4c4;
+}
+
+
+
+/* Fonts */
+.young-serif    {
+    font-family: var(--young-serif);
+}
+
+.montserrat     {
+    font-family: var(--montserrat);
+}
+
+
+/* Foreground Colors */
+.fg-one {
+    color: var(--one);
+}
+
+.fg-two {
+    color: var(--two);
+}
+
+.fg-three {
+    color: var(--three);
+}
+
+.fg-four {
+    color: var(--four);
+}
+
+.fg-five {
+    color: var(--five);
+}
+
+.fg-six {
+    color: var(--six);
+}
+
+
+
+/* Background Colors */
+.bg-zero {
+    background-color: var(--zero);
+}
+
+.bg-one {
+    background-color: var(--one);
+}
+
+.bg-two {
+    background-color: var(--two);
+}
+
+.bg-three {
+    background-color: var(--three);
+}
+
+.bg-four {
+    background-color: var(--four);
+}
+
+.bg-five {
+    background-color: var(--five);
+}
+
+.bg-six {
+    background-color: var(--six);
+}
+
+
+
+/* STYLESETS */
+
+body    {
+    background-color: var(--six);
+}
