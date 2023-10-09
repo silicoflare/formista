@@ -1,0 +1,120 @@
+{
+    "link": "",
+    "password": "lmao@123",
+    "title": "HackerSpace Feedback",
+    "fontImports": [
+        "@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Poppins&display=swap');"
+    ],
+    "styles": {
+        "header": {
+            "backgroundColor": "#004AAC",
+            "color": "white",
+            "fontFamily": "JetBrains Mono"
+        },
+        "body": {
+            "backgroundColor": "white",
+            "color": "black",
+            "fontFamily": "Poppins"
+        },
+        "formElements": {
+            "heading": {
+                "color": "#004AAC",
+                "fontFamily": "JetBrains Mono"
+            },
+            "label": {
+                "color": "#004AAC",
+                "fontFamily": "JetBrains Mono"
+            },
+            "textbox": {
+                "borderRadius": "5px",
+                "borderColor": "black",
+                "borderWidth": "2px",
+                "color": "black",
+                "fontFamily":"Poppins"
+            },
+            "checkbox": {
+                "color": "black"
+            },
+            "radio": {
+                "color": "black"
+            },
+            "rating": {
+                "color": "black"
+            },
+            "dropdown": {
+                "borderRadius": "5px",
+                "borderColor": "black",
+                "borderWidth": "2px",
+                "color": "black",
+                "fontFamily":"Poppins"
+            },
+            "option": {
+                "normal": {
+                    "color": "black",
+                    "backgroundColor": "white"
+                },
+                "hover": {
+                    "color": "white",
+                    "backgroundColor": "#004AAC"
+                }
+            },
+            "likert": {
+                "color": "black"
+            },
+            "button": {
+                "borderRadius": "5px",
+                "color": "white",
+                "backgroundColor": "#004AAC"
+            }
+        }
+    },
+
+    "metadata": [
+        {
+            "type": "heading",
+            "label": "Basic Stuff",
+            "id": "basic-stuff"
+        },
+        {
+            "type": "textbox",
+            "id": "name",
+            "label": "Name",
+            "placeholder": "Enter your name",
+            "required": true
+        },
+        {
+            "type": "number",
+            "id": "age",
+            "label": "Age",
+            "placeholder": "Enter your age",
+            "required": true,
+            "range": {
+                "min": 18,
+                "max": 24
+            }
+        },
+        {
+            "type": "dropdown",
+            "id": "gender",
+            "label": "Gender",
+            "required": true,
+            "options": [
+                {
+                    "name": "Walmart Bag",
+                    "value": "walmartbag"
+                },
+                {
+                    "name": "Attack Helicopter",
+                    "value": "attackhelicopter"
+                }
+            ]
+        },
+        {
+            "type": "textarea",
+            "id": "message",
+            "label": "Message",
+            "placeholder": "Enter your message",
+            "required": true
+        }
+    ]
+}

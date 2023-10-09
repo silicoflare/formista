@@ -7,6 +7,8 @@ function Home() {
             <Header/>
             <br/><br/>
             <FeatureList/>
+            <br/><br/>
+            
         </div>
     );
 }
