@@ -8,7 +8,14 @@
     • styles: Object
 */
 
-function Number({ id, placeholder, required, range, styles, children })   {
+function Number({ id, placeholder, required, range, styles, children, handleOut })   {
+    const changeVal = (e) => {
+        handleOut((oldVals) => ({
+            ...oldVals,
+            [id]: parseInt(e.target.value),
+        }));
+    };
+
     return (
         <>
             <label 
@@ -29,6 +36,7 @@ function Number({ id, placeholder, required, range, styles, children })   {
                 id={ id } 
                 name={ id } 
                 style={ styles[1] }
+                onChange={changeVal}
             />
             <br/>
             <br/>

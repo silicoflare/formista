@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Layout from './pages/Layout';
 import FormStuff from "./pages/FormStuff";
 import ViewForm from "./pages/ViewForm";
+import EditForm from "./pages/EditForm";
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
                 </Route>
                 <Route path="/:formID" element={ <FormStuff/> }>
                     <Route index element={<ViewForm />} />
-                    {/* <Route path="edit" element={ <EditForm/> } /> */}
+                    <Route path="edit" element={ <EditForm/> } />
                     {/* <Route path="preview" element={ <PreviewForm/> } /> */}
                     {/* <Route path="delete" element={ <DeleteForm/> } /> */}
                 </Route>

@@ -8,7 +8,14 @@
     • styles: Object
 */
 
-function Textarea({ id, placeholder, required, styles, children })   {
+function Textarea({ id, placeholder, required, styles, children, handleOut })   {
+    const changeVal = (e) => {
+        handleOut((oldVals) => ({
+            ...oldVals,
+            [id]: e.target.value,
+        }));
+    };
+
     return (
         <>
             <label 
@@ -27,6 +34,7 @@ function Textarea({ id, placeholder, required, styles, children })   {
                 id={ id } 
                 name={ id } 
                 style={ styles[1] }
+                onChange={changeVal}
             />
             <br/>
             <br/>

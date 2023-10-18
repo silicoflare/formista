@@ -8,7 +8,14 @@
     • styles: Object
 */
 
-function Dropdown({ id, label, required, options, styles, children }) {
+function Dropdown({ id, label, required, options, styles, children, handleOut }) {
+    const changeVal = (e) => {
+        handleOut((oldVals) => ({
+            ...oldVals,
+            [id]: e.target.value,
+        }));
+    };
+
     return (
         <>
             <label
@@ -25,6 +32,7 @@ function Dropdown({ id, label, required, options, styles, children }) {
                 name={id}
                 required={required}
                 style={styles[1]}
+                onChange={changeVal}
             >
                 {options.map((x) => (
                     <option
