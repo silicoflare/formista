@@ -10,7 +10,8 @@ export default function FormEditor({ formData, setTitle })    {
               ...prevData,
               title: value
             };
-            setTitle(() => updatedData.title);
+            setTitle(() => value !== '' ? updatedData.title : ' ');
+            console.log(value !== '');
             return updatedData;
         });
     }
