@@ -1,0 +1,168 @@
+{
+    "formID": "Fyc1RjnjuN",
+    "password": "lmao@123",
+    "title": "SilicoFlare Form",
+    "fontImports": [
+        "@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');",
+        "@ import url(https://silicoflare.github.io/silicocdn/files/styles.css);"
+    ],
+    "styles": {
+        "header": {
+            "backgroundColor": "#7F00FF",
+            "color": "white",
+            "fontFamily": "SilicoHand"
+        },
+        "body": {
+            "backgroundColor": "white",
+            "color": "black",
+            "fontFamily": "Poppins"
+        },
+        "formElements": {
+            "heading": {
+                "color": "#7F00FF",
+                "fontFamily": "SilicoHand"
+            },
+            "label": {
+                "color": "orangered",
+                "fontFamily": "Poppins"
+            },
+            "textbox": {
+                "borderRadius": "5px",
+                "borderColor": "black",
+                "borderWidth": "2px",
+                "color": "black",
+                "fontFamily":"Poppins"
+            },
+            "dropdown": {
+                "borderRadius": "5px",
+                "borderColor": "black",
+                "borderWidth": "2px",
+                "color": "black",
+                "fontFamily":"Poppins"
+            },
+            "option": {
+                "normal": {
+                    "color": "black",
+                    "backgroundColor": "white"
+                },
+                "hover": {
+                    "color": "white",
+                    "backgroundColor": "#004AAC"
+                }
+            },
+            "button": {
+                "borderRadius": "5px",
+                "color": "white",
+                "backgroundColor": "#004AAC"
+            }
+        }
+    },
+
+    "metadata": [
+        {
+            "type": "heading",
+            "label": "Basic Stuff",
+            "id": "basic-stuff"
+        },
+        {
+            "type": "textbox",
+            "id": "name",
+            "label": "Name",
+            "placeholder": "Enter your name",
+            "required": true
+        },
+        {
+            "type": "number",
+            "id": "age",
+            "label": "Age",
+            "placeholder": "Enter your age",
+            "required": true,
+            "range": {
+                "min": 18,
+                "max": 24
+            }
+        },
+        {
+            "type": "dropdown",
+            "id": "gender",
+            "label": "Gender",
+            "required": true,
+            "options": [
+                {
+                    "name": "Walmart Bag",
+                    "value": "walmartbag"
+                },
+                {
+                    "name": "Attack Helicopter",
+                    "value": "attackhelicopter"
+                }
+            ]
+        },
+        {
+            "type": "textarea",
+            "id": "message",
+            "label": "Message",
+            "placeholder": "Enter your message",
+            "required": true
+        },
+        {
+            "type": "radio",
+            "id": "home",
+            "label": "Type of Student",
+            "required": true,
+            "options": [
+                {
+                    "name": "Day Scholar",
+                    "value": "dayscholar"
+                },
+                {
+                    "name": "Hostelite",
+                    "value": "hostelite"
+                }
+            ],
+            "icon": {
+                "no": "nf-md-checkbox_blank_circle_outline",
+                "yes": "nf-md-checkbox_marked_circle_outline"
+            },
+            "colors": {
+                "no": "black",
+                "yes": "green"
+            }
+        },
+        {
+            "type": "checkbox",
+            "id": "amenities",
+            "label": "Amenities Used",
+            "required": false,
+            "options": [
+                {
+                    "name": "Library",
+                    "value": "library"
+                },
+                {
+                    "name": "Cafeteria",
+                    "value": "cafeteria"
+                }
+            ],
+            "icon": {
+                "no": "nf-md-checkbox_blank_outline",
+                "yes": "nf-md-checkbox_marked_outline"
+            },
+            "colors": {
+                "no": "black",
+                "yes": "green"
+            }
+        },
+        {
+            "type": "rating",
+            "id": "workshopRating",
+            "label": "Workshop Rating",
+            "count": 5,
+            "icon": "nf-md-star_circle",
+            "colors": {
+                "no": "black",
+                "yes": "darkgreen"
+            }
+        }
+    ]
+}
