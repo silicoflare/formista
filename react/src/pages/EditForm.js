@@ -48,13 +48,13 @@ export default function EditForm() {
             <h1 className="text-4xl lg:text-6xl w-full text-center">{ title }</h1>
             <br/><br/>
 
-            <div className="w-full p-3 flex flex-row justify-between items-center text-3xl">
-                { !isPass && <div>
+            { !isPass && <div className="w-full p-3 flex flex-row justify-between items-center text-3xl">
+                <div>
                     <span className="text-[--four]">Password:</span>&nbsp;
                     <input type="password" id="pass" className="p-2 bg-white text-xl focus:outline-none focus:ring-2 focus:ring-[--four]" />&nbsp;
                     <button className="px-5 py-2 text-xl bg-[--five] text-white focus:outline-none focus:ring-[#317a63]" onClick={init}>Submit</button>
-                </div> }
-            </div>
+                </div> 
+            </div> }
             <br/><br/>
             { isPass && <FormEditor formData={formData} setTitle={setTitle}/> }
         </div>
