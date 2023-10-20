@@ -5,7 +5,7 @@ import FormEditor from "../components/form_edit/FormEditor";
 
 export default function EditForm() {
     const { formID } = useParams();
-    const [isPass, setIsPass] = useState(false);
+    const [ isPass, setIsPass ] = useState(false);
     const [ title, setTitle ] = useState('');
     // const [ showPopup, setPopup ] = useState(true);
     const formData = require(`../../form_ideas/${formID}.json`);
@@ -44,15 +44,15 @@ export default function EditForm() {
     // }, [password]);
 
     return (
-        <div className="flex flex-col justify-top w-screen h-screen items-start p-10 text-[--one]">
-            <h1 className="text-4xl lg:text-6xl w-full text-center">{ title }</h1>
+        <div className="flex flex-col justify-top w-screen h-screen items-start p-10 text-[--two] font-montserrat">
+            <h1 className="text-4xl lg:text-6xl w-full text-center font-[--three] young-serif">{ title }</h1>
             <br/><br/>
 
             { !isPass && <div className="w-full p-3 flex flex-row justify-between items-center text-3xl">
                 <div>
-                    <span className="text-[--four]">Password:</span>&nbsp;
-                    <input type="password" id="pass" className="p-2 bg-white text-xl focus:outline-none focus:ring-2 focus:ring-[--four]" />&nbsp;
-                    <button className="px-5 py-2 text-xl bg-[--five] text-white focus:outline-none focus:ring-[#317a63]" onClick={init}>Submit</button>
+                    <span className="text-[--three]">Password:</span>&nbsp;
+                    <input type="password" id="pass" className="p-2 bg-[--four] text-xl focus:outline-none focus:ring-2 focus:ring-[--four]" />&nbsp;
+                    <button className="px-5 py-2 text-xl bg-[--one] text-white focus:outline-none focus:ring-[#317a63]" onClick={init}>Submit</button>
                 </div> 
             </div> }
             <br/><br/>

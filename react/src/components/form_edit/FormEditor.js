@@ -20,17 +20,17 @@ export default function FormEditor({ formData, setTitle })    {
         switch(key)     {
             case 'formID':
                 return (
-                    <div className="bg-[--five] py-3 px-5 rounded-md w-3/4 space-y-4" key={key}>
+                    <div className="bg-[--three] p-5 w-3/4 space-y-4" key={key}>
                         <span className="text-white text-3xl">Form ID:</span><br/>
-                        <input type="text" id="formID" className="p-2 bg-gray-300 text-gray-600 text-xl" value={value} readOnly={true} />
+                        <input type="text" id="formID" className="p-2 bg-gray-300 text-gray-600 text-xl focus:outline-none focus:ring-2 focus:ring-[--one]" value={value} readOnly={true} />
                     </div>
                 );
             
             case 'title':
                 return (
-                    <div className="bg-[--five] py-3 px-5 rounded-md w-3/4 space-y-4" key={key}>
+                    <div className="bg-[--three] p-5 w-3/4 space-y-4" key={key}>
                         <span className="text-white text-3xl">Title:</span><br/>
-                        <input type="text" id="title" className="p-2 bg-white text-black text-xl" value={value} onChange={(e) => changeTitle(e.target.value)}/>
+                        <input type="text" id="title" className="p-2 bg-[--four] text-[--five] text-xl focus:outline-none focus:ring-2 focus:ring-[--one]" value={value} onChange={(e) => changeTitle(e.target.value)}/>
                     </div>
                 );
             
