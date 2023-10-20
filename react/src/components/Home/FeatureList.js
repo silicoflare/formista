@@ -3,7 +3,7 @@ import Feature from "./Feature";
 function FeatureList() {
     return (
         <div className="mt-20">
-            <h1 className="text-4xl lg:text-6xl text-center font-bold young-serif fg-one">Features</h1>
+            <h1 className="text-4xl lg:text-6xl text-center font-bold young-serif text-[--three]">Features</h1>
             <br/>
             <div className="flex flex-col lg:grid grid-cols-3">
                 <Feature icon={ 'nf-seti-css' }>Control over page and<br/>element styles</Feature>

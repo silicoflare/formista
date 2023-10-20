@@ -30,12 +30,19 @@
     --six: #B5F8FE; */
 
     /* Color Palette 3 */
-    --one: #00458b;
+    /* --one: #00458b;
     --two: #5ad2e4;
     --three: #3a85f3;
     --four: #4b4b4b;
     --five: #45a989;
-    --six: #a2d4c4;
+    --six: #a2d4c4; */
+
+    /* Color Palette 4 */
+    --one: #2f3e46;
+    --two: #374f54;
+    --three: #517970;
+    --four: #85a98d;
+    --five: #c9d2c6;
 }
 
 
@@ -111,5 +118,5 @@
 /* STYLESETS */
 
 body    {
-    background-color: var(--six);
+    background-color: var(--five);
 }
