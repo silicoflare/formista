@@ -4,7 +4,7 @@
     "title": "SilicoFlare Form",
     "fontImports": [
         "@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');",
-        "@ import url(https://silicoflare.github.io/silicocdn/files/styles.css);"
+        "@import url(https://silicoflare.github.io/silicocdn/files/styles.css);"
     ],
     "styles": {
         "header": {
@@ -17,44 +17,25 @@
             "color": "black",
             "fontFamily": "Poppins"
         },
-        "formElements": {
-            "heading": {
-                "color": "#7F00FF",
-                "fontFamily": "SilicoHand"
-            },
-            "label": {
-                "color": "orangered",
-                "fontFamily": "Poppins"
-            },
-            "textbox": {
-                "borderRadius": "5px",
-                "borderColor": "black",
-                "borderWidth": "2px",
-                "color": "black",
-                "fontFamily":"Poppins"
-            },
-            "dropdown": {
-                "borderRadius": "5px",
-                "borderColor": "black",
-                "borderWidth": "2px",
-                "color": "black",
-                "fontFamily":"Poppins"
-            },
-            "option": {
-                "normal": {
-                    "color": "black",
-                    "backgroundColor": "white"
-                },
-                "hover": {
-                    "color": "white",
-                    "backgroundColor": "#004AAC"
-                }
-            },
-            "button": {
-                "borderRadius": "5px",
-                "color": "white",
-                "backgroundColor": "#004AAC"
-            }
+        "heading": {
+            "color": "#7F00FF",
+            "fontFamily": "SilicoHand"
+        },
+        "label": {
+            "color": "orangered",
+            "fontFamily": "Poppins"
+        },
+        "textbox": {
+            "borderRadius": "5px",
+            "borderColor": "black",
+            "borderWidth": "2px",
+            "color": "black",
+            "fontFamily":"Poppins"
+        },
+        "button": {
+            "borderRadius": "5px",
+            "color": "white",
+            "backgroundColor": "#004AAC"
         }
     },
 

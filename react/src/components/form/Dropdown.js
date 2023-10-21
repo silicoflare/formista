@@ -39,7 +39,6 @@ function Dropdown({ id, label, required, options, styles, children, handleOut })
                         key={x.value}
                         value={x.value}
                         className="p-2 w-full text-xl"
-                        style={styles[2]}
                     >
                         {x.name}
                     </option>

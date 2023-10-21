@@ -16,44 +16,25 @@
             "color": "black",
             "fontFamily": "Poppins"
         },
-        "formElements": {
-            "heading": {
-                "color": "#004AAC",
-                "fontFamily": "JetBrains Mono"
-            },
-            "label": {
-                "color": "#004AAC",
-                "fontFamily": "JetBrains Mono"
-            },
-            "textbox": {
-                "borderRadius": "5px",
-                "borderColor": "black",
-                "borderWidth": "2px",
-                "color": "black",
-                "fontFamily":"Poppins"
-            },
-            "dropdown": {
-                "borderRadius": "5px",
-                "borderColor": "black",
-                "borderWidth": "2px",
-                "color": "black",
-                "fontFamily":"Poppins"
-            },
-            "option": {
-                "normal": {
-                    "color": "black",
-                    "backgroundColor": "white"
-                },
-                "hover": {
-                    "color": "white",
-                    "backgroundColor": "#004AAC"
-                }
-            },
-            "button": {
-                "borderRadius": "5px",
-                "color": "white",
-                "backgroundColor": "#004AAC"
-            }
+        "heading": {
+            "color": "#004AAC",
+            "fontFamily": "JetBrains Mono"
+        },
+        "label": {
+            "color": "#004AAC",
+            "fontFamily": "JetBrains Mono"
+        },
+        "textbox": {
+            "borderRadius": "5px",
+            "borderColor": "black",
+            "borderWidth": "2px",
+            "color": "black",
+            "fontFamily":"Poppins"
+        },
+        "button": {
+            "borderRadius": "5px",
+            "color": "white",
+            "backgroundColor": "#004AAC"
         }
     },
 

@@ -62,7 +62,7 @@ function ViewForm() {
         // console.log(metadata.type);
         switch (metadata.type) {
             case 'heading':
-                // console.log(metadata);
+                // console.log(styles['heading']);
                 return <Heading styles={styles.heading} key={metadata.id}>{metadata.label}</Heading>;
 
             case 'textbox':
@@ -75,7 +75,7 @@ function ViewForm() {
                 return <Textarea handleOut={setFormOut} id={ metadata.id } placeholder={ metadata.placeholder } required={ metadata.required } styles={[styles.label, styles.textbox ]} className="my-10" key={ metadata.id }>{ metadata.label }</Textarea>
 
             case 'dropdown':
-                return <Dropdown fOut={formOut} handleOut={setFormOut} id={metadata.id} required={metadata.required} options={metadata.options} styles={[styles.label, styles.dropdown, styles.option ]} className="my-10" key={metadata.id}>{metadata.label}</Dropdown>
+                return <Dropdown fOut={formOut} handleOut={setFormOut} id={metadata.id} required={metadata.required} options={metadata.options} styles={[styles.label, styles.textbox]} className="my-10" key={metadata.id}>{metadata.label}</Dropdown>
 
             case 'radio':
                 return <Radio fOut={formOut} handleOut={setFormOut} id={metadata.id} options={metadata.options} icon={metadata.icon} colors={metadata.colors} styles={styles.label} key={metadata.id}>{metadata.label}</Radio>
@@ -132,9 +132,9 @@ function ViewForm() {
 
             <main className="flex flex-col justify-center items-center text-left px-10 w-full">
                 <div className='lg:w-3/4'>
-                    {formData.metadata.map((x) => renderElement(x, formData.styles.formElements))}
+                    {formData.metadata.map((x) => renderElement(x, formData.styles))}
                 </div>
-                <button onClick={() => console.log(formOut)} style={formData.styles.formElements.button} className='text-3xl px-10 py-2'>Submit</button>
+                <button onClick={() => console.log(formOut)} style={formData.styles.button} className='text-3xl px-10 py-2'>Submit</button>
             </main>
             <br/><br/>
         </div>
