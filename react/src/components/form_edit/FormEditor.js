@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 import FormTodo from "./FormTodo";
 import FormStyles from "./FormStyles";
 import StyleList from "./StyleList";
+import ElementList from './ElementList';
 
 export default function FormEditor({ formData, setTitle })    {
     const [ data, setData ] = useState({});
+    const [imports, setImports] = useState([]);
+    const [ styleData, setStyleData ] = useState({});
+    const [ elementList, setElementList ] = useState([]);
 
     
     function changeTitle(value) {
@@ -16,6 +20,19 @@ export default function FormEditor({ formData, setTitle })    {
             setTitle(() => value !== '' ? updatedData.title : ' ');
             console.log(value !== '');
             return updatedData;
+        });
+    }
+
+    function submitData(e)   {
+        e.preventDefault();
+        setData((oldData) => {
+            const newData = {
+                ...oldData,
+                'fontImports': imports,
+                'styles': styleData
+            };
+            // console.log(newData);
+            return newData;
         });
     }
 
@@ -39,10 +56,13 @@ export default function FormEditor({ formData, setTitle })    {
                 );
             
             case 'fontImports':
-                return <FormTodo data={data} setData={setData} key={key} keyName={key} titl="Font Imports">import</FormTodo>
+                return <FormTodo data={data} setData={setData} key={key} keyName={key} titl="Font Imports" imports={imports} setImports={setImports}>import</FormTodo>
             
             case 'styles':
-                return <StyleList data={data} setData={setData} key={key} />
+                return <StyleList data={data} setData={setData} key={key} styleData={styleData} setStyleData={setStyleData} />
+            
+            case 'metadata':
+                return <ElementList data={data} setData={setData} elementList={elementList} setElementList={setElementList}/>
 
             default:
                 return;
@@ -73,6 +93,8 @@ export default function FormEditor({ formData, setTitle })    {
             { Object.entries(data).map(([key, value]) => 
                 getStuff(key, value)
             ) }
-        </div>
+            <br/><br/>
+            <button className="bg-[--one] px-5 py-2 text-xl text-white focus:outline-none focus:ring-2 mx-2 focus:ring-[--five]" onClick={(e) => submitData(e)}>Submit</button>
+        </div>  
     );
 }

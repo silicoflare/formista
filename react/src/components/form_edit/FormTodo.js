@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function FormTodo({ data, setData, keyName, titl, children }) {
-    const [imports, setImports] = useState([]);
-
+export default function FormTodo({ data, setData, imports, setImports, keyName, titl, children }) {
     useEffect(() => {
         setImports(() => data['fontImports']);
     }, [data]);
