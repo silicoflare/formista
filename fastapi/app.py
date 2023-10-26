@@ -5,19 +5,22 @@ from fastapi.requests import Request
 from pymongo import MongoClient
 from hashlib import sha256
 from datetime import datetime
+import os
+import dotenv
+dotenv.load_dotenv()
 
 app = FastAPI(title='Formista API')
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"] ,
+    allow_origins=["http://localhost", "http://localhost:3000", "*"] ,
     allow_credentials=True,
     allow_methods=["*"],  
     allow_headers=["*"],  
 )
 
 
-client = MongoClient('mongodb://localhost:27017')
+client = MongoClient(f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority')
 form_coll = client['formista']['formdata']
 
 _temp_ = {}
@@ -50,7 +53,7 @@ async def new_form(data: dict):
             "formID": data.get('formID')
         }
     else:
-        data['password'] = get_hash(data['password'])
+        # data['password'] = get_hash(data['password'])
         data['responses'] = []
         form_coll.insert_one(data)
         return {
@@ -81,6 +84,8 @@ async def get_form(formID):
 
 @app.post('/storetemp/{formID}')
 async def store_temp(formID:str, data:dict):
+    if data.get('responses'):
+        del data['responses']
     _temp_[formID] = data
     return {
         'message': 'Stored successfully',
@@ -91,4 +96,16 @@ async def store_temp(formID:str, data:dict):
 @app.get('/gettemp/{formID}')
 async def get_temp(formID:str):
     data = _temp_.get(formID)
-    return data if data else { 'message': 'Not found', 'status': 404 }
+    return data if data else JSONResponse(content={'message': 'Not found'}, status_code=404)
+
+
+@app.post('/{formID}/edit')
+async def edit_form(formID:str, data:dict):
+    if data.get('responses'):
+        del data['responses']
+    form_coll.update_one({ 'formID': formID }, {
+        "$set": data
+    })
+    if _temp_.get(formID):
+        del _temp_[formID]
+    return { "message": "Updated form" }

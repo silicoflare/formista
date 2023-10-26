@@ -8,6 +8,7 @@ export default function Element({ data, setData, elementList, setElementList }) 
     }, [data]);
 
     const formMeta = {
+        "[Select a value]": {},
         "heading": {
             "type": "heading",
             "label": "",
@@ -115,12 +116,15 @@ export default function Element({ data, setData, elementList, setElementList }) 
     }
 
     function addElement(type)   {
-        setElementList((oldList) => {
-            const temp = [...oldList];
-            temp.push(formMeta[type]);
-            // console.log(temp);
-            return temp;
-        })
+        if(type !== '[Select a value]') {
+            setElementList((oldList) => {
+                const temp = [...oldList];
+                temp.push(formMeta[type]);
+                // console.log(temp);
+                return temp;
+            });
+        }
+        document.getElementById('selector').value = '[Select a value]';
     }
 
     return (
@@ -128,15 +132,15 @@ export default function Element({ data, setData, elementList, setElementList }) 
             <br /><br />
             <div className='w-3/4 flex-col justify-center flex items-center'>
                 <span className="text-[--three] text-5xl font-bold">Form Elements</span><br /><br />
-                <span className='flex flex-row w-3/4 justify-center align-middle'>
-                    <select className="fonts p-2 bg-[--four] text-white text-lg font-mono w-4/5 focus:outline-none focus:ring-2 focus:ring-[--one]" onChange={(e) => selectElement(e.target.value)}>
+                <span className='flex flex-row w-4/5 justify-center align-middle'>
+                    <select className="fonts p-2 bg-[--four] text-white text-lg font-mono w-4/5 focus:outline-none focus:ring-2 focus:ring-[--one]" id='selector' onChange={(e) => selectElement(e.target.value)}>
                         { Object.keys(formMeta).map((x) => <option key={x} value={x}>{x}</option>) }
                     </select>
                     <button className="bg-[--one] p-2 text-white focus:outline-none focus:ring-2 mx-2 focus:ring-[--five]" onClick={() => addElement(selected)}>
                         + Add element
                     </button><br /><br />
                 </span>
-                {elementList.map((ele, i) => <FormElement data={ele} type={ele?.type} key={i} index={i} setElementList={setElementList} length={elementList.length}/>)}
+                {elementList.map((ele, i) => <FormElement data={ele} elementList={elementList} type={ele?.type} key={i} index={i} setElementList={setElementList} length={elementList.length}/>)}
             </div>
         </>
     );
