@@ -18,7 +18,7 @@ export default function FormEditor({ formData, setTitle })    {
               title: value
             };
             setTitle(() => value !== '' ? updatedData.title : ' ');
-            console.log(value !== '');
+            // console.log(value !== '');
             return updatedData;
         });
     }
