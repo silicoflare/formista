@@ -6,7 +6,7 @@ import ElementList from './ElementList';
 
 export default function FormEditor({ formData, setTitle })    {
     const [ data, setData ] = useState({});
-    const [imports, setImports] = useState([]);
+    const [ imports, setImports ] = useState([]);
     const [ styleData, setStyleData ] = useState({});
     const [ elementList, setElementList ] = useState([]);
 
@@ -29,7 +29,8 @@ export default function FormEditor({ formData, setTitle })    {
             const newData = {
                 ...oldData,
                 'fontImports': imports,
-                'styles': styleData
+                'styles': styleData,
+                'metadata': elementList
             };
             // console.log(newData);
             return newData;
