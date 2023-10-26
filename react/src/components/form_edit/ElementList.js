@@ -136,7 +136,7 @@ export default function Element({ data, setData, elementList, setElementList }) 
                         + Add element
                     </button><br /><br />
                 </span>
-                {elementList.map((ele, i) => <FormElement data={ele} type={ele?.type} key={i} index={i} setElementList={setElementList} />)}
+                {elementList.map((ele, i) => <FormElement data={ele} type={ele?.type} key={i} index={i} setElementList={setElementList} length={elementList.length}/>)}
             </div>
         </>
     );

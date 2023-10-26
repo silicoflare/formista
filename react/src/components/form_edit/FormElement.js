@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function FormElement({ data, type, index, setElementList }) {
+export default function FormElement({ data, type, index, setElementList, length }) {
     const [eleData, setEleData] = useState({});
     const [options, setOptions] = useState([]);
 
@@ -70,13 +70,41 @@ export default function FormElement({ data, type, index, setElementList }) {
         })
     }
 
+    function elementDown(index) {
+        setElementList((oldData) => {
+            const temp = [...oldData];
+            let foo;
+            foo = temp[index];
+            temp[index] = temp[index+1];
+            temp[index+1] = foo;
+            return temp;
+        })
+    }
+
+    function elementUp(index) {
+        setElementList((oldData) => {
+            const temp = [...oldData];
+            let foo;
+            foo = temp[index];
+            temp[index] = temp[index-1];
+            temp[index-1] = foo;
+            return temp;
+        })
+    }
+
+
+
     switch (type) {
         case 'heading':
             return (
                 <div className="bg-[--three] p-5 w-3/4 space-y-4 my-5" key={index}>
                     <span className="flex flex-row items-center justify-between">
                         <span className="text-white text-3xl">Heading</span><br />
-                        <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        <span>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementUp(index)} disabled={index == 0}>▲</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementDown(index)} disabled={index == length - 1}>▼</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        </span>
                     </span>
 
                     <span className="flex flex-row items-center justify-between my-2">
@@ -95,7 +123,11 @@ export default function FormElement({ data, type, index, setElementList }) {
                 <div className="bg-[--three] p-5 w-3/4 space-y-4 my-5" key={index}>
                     <span className="flex flex-row items-center justify-between">
                         <span className="text-white text-3xl">Textbox</span><br />
-                        <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        <span>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementUp(index)} disabled={index == 0}>▲</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementDown(index)} disabled={index == length - 1}>▼</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        </span>
                     </span>
 
                     <span className="flex flex-row items-center justify-between my-2">
@@ -125,7 +157,11 @@ export default function FormElement({ data, type, index, setElementList }) {
                 <div className="bg-[--three] p-5 w-3/4 space-y-4 my-5" key={index}>
                     <span className="flex flex-row items-center justify-between">
                         <span className="text-white text-3xl">Number</span><br />
-                        <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        <span>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementUp(index)} disabled={index == 0}>▲</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementDown(index)} disabled={index == length - 1}>▼</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        </span>
                     </span>
 
                     <span className="flex flex-row items-center justify-between my-2">
@@ -164,7 +200,11 @@ export default function FormElement({ data, type, index, setElementList }) {
                 <div className="bg-[--three] p-5 w-3/4 space-y-4 my-5" key={index}>
                     <span className="flex flex-row items-center justify-between">
                         <span className="text-white text-3xl">Dropdown</span><br />
-                        <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        <span>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementUp(index)} disabled={index == 0}>▲</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementDown(index)} disabled={index == length - 1}>▼</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        </span>
                     </span>
 
                     <span className="flex flex-row items-center justify-between my-2">
@@ -209,7 +249,11 @@ export default function FormElement({ data, type, index, setElementList }) {
                 <div className="bg-[--three] p-5 w-3/4 space-y-4 my-5" key={index}>
                     <span className="flex flex-row items-center justify-between">
                         <span className="text-white text-3xl">Textarea</span><br />
-                        <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        <span>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementUp(index)} disabled={index == 0}>▲</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementDown(index)} disabled={index == length - 1}>▼</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        </span>
                     </span>
 
                     <span className="flex flex-row items-center justify-between my-2">
@@ -239,7 +283,11 @@ export default function FormElement({ data, type, index, setElementList }) {
                 <div className="bg-[--three] p-5 w-3/4 space-y-4 my-5" key={index}>
                     <span className="flex flex-row items-center justify-between">
                         <span className="text-white text-3xl">Radio</span><br />
-                        <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        <span>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementUp(index)} disabled={index == 0}>▲</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementDown(index)} disabled={index == length - 1}>▼</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        </span>
                     </span>
 
                     <span className="flex flex-row items-center justify-between my-2">
@@ -306,7 +354,11 @@ export default function FormElement({ data, type, index, setElementList }) {
                 <div className="bg-[--three] p-5 w-3/4 space-y-4 my-5" key={index}>
                     <span className="flex flex-row items-center justify-between">
                         <span className="text-white text-3xl">Checkbox</span><br />
-                        <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        <span>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementUp(index)} disabled={index == 0}>▲</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementDown(index)} disabled={index == length - 1}>▼</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        </span>
                     </span>
 
                     <span className="flex flex-row items-center justify-between my-2">
@@ -373,7 +425,11 @@ export default function FormElement({ data, type, index, setElementList }) {
                 <div className="bg-[--three] p-5 w-3/4 space-y-4 my-5" key={index}>
                     <span className="flex flex-row items-center justify-between">
                         <span className="text-white text-3xl">Rating</span><br />
-                        <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        <span>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementUp(index)} disabled={index == 0}>▲</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four] disabled:bg-gray-500 disabled:text-gray-300" onClick={() => elementDown(index)} disabled={index == length - 1}>▼</button>
+                            <button className="p-2 w-11 h-11 mx-2 bg-[--two] text-white focus:outline-none focus:ring-2 focus:ring-[--four]" onClick={() => deleteElement(index)}>×</button>
+                        </span>
                     </span>
 
                     <span className="flex flex-row items-center justify-between my-2">
