@@ -21,7 +21,7 @@ app.add_middleware(
 
 
 client = MongoClient(f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority')
-form_coll = client['formista']['formdata']
+form_coll = client['formista']['forms']
 
 _temp_ = {}
 
