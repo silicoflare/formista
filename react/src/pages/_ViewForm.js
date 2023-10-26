@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 import Heading from '../components/form/Heading';
 import Textbox from '../components/form/Textbox';
@@ -12,17 +13,52 @@ import Rating from '../components/form/Rating';
 
 
 
-export default function ViewForm() {
+function ViewForm() {
     const { formID } = useParams();
-
-    const [formData, setFormData] = useState(null);
+    // const formData = require(`../../form_ideas/${formID}.json`);
+    
+    const [ formData, setFormData ] = useState(null);
     const [formOut, setFormOut] = useState({});
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`http://localhost:8001/${formID}`);
+                const data = await response.json();
+                setFormData(data);
+                // console.log(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    }, [formID]);
+
+
+    setFormOut(() => {
+            const init = {}
+            const defaultVals = {
+                'textbox': '',
+                'number': 0,
+                'textarea': '',
+                'dropdown': '',
+                'radio': '',
+                'checkbox': {},
+                'rating': 0,
+            }
+            formData?.metadata.forEach((ele) => {
+                if (ele.type in defaultVals)
+                    init[ele.id] = defaultVals[ele.type];
+            });
+            return init;
+        });
+
 
     function addFonts(styleData) {
         // console.log(styleData);
         const sty = document.createElement('style');
         for (const st of styleData)
-            sty.innerHTML += `${st}`;
+            sty.innerHTML += st;
         document.head.appendChild(sty);
     }
 
@@ -38,6 +74,7 @@ export default function ViewForm() {
     }
 
 
+    // element render
     function renderElement(metadata, styles) {
         // console.log(metadata.type);
         switch (metadata.type) {
@@ -74,71 +111,44 @@ export default function ViewForm() {
 
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`http://localhost:8001/${formID}`);
-                const data = await response.json();
-                setFormData(data);
-                // console.log(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchData();
-    }, [formID]);
 
-    useEffect(() => {
-        if(formData)
-            setFormOut(() => {
-                const init = {}
-                const defaultVals = {
-                    'textbox': '',
-                    'number': 0,
-                    'textarea': '',
-                    'dropdown': '',
-                    'radio': '',
-                    'checkbox': {},
-                    'rating': 0,
-                }
-                formData?.metadata.forEach((ele) => {
-                    if (ele.type in defaultVals)
-                        init[ele.id] = defaultVals[ele.type];
-                });
-                return init;
-            });
-    }, [formData, formID]);
 
-    if (formData) {
-        document.title = `${formData?.title} - Formista`;
-        const docTitle = document.title;
-        window.addEventListener("blur", function () {
-            document.title = "Please come back :_)";
-        });
-        window.addEventListener("focus", function () {
-            document.title = docTitle;
-        });
+    // Setting title
+    document.title = `${formData?.title} - Formista`;
+    const docTitle = document.title;
+    window.addEventListener("blur", function () {
+        document.title = "Please come back :_)";
+    });
+    window.addEventListener("focus", function () {
+        document.title = docTitle;
+    });
 
+
+    // import fonts
+    if(formData?.fontImports)
         addFonts(formData?.fontImports);
+
+    // set basic styles
+    if(formData?.styles?.body)
         setBodyStyles(formData?.styles?.body);
-    }
+
+    //handling changes in the form
+    const handleChange = (field, newData) => {
+        setFormOut(function (oldData) {
+            return {
+                ...oldData,
+                [field]: newData
+            }
+        })
+    };
 
 
     function submit()   {
-        const options = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8'},
-            body: JSON.stringify(formOut)
-          };
-          
-          fetch(`http://localhost:8001/respond/${formID}`, options)
-            .then(response => response.json())
-            .then(response => alert(response['message']))
-            .catch(err => console.error(err));
+
     }
 
 
-    const mainBody = (formData &&
+    const mainBody = (
         <div className="flex flex-col justify-center text-left">
             <header className="p-5 lg:p-10 text-left text-2xl lg:text-5xl" style={formData?.styles?.header}>
                 {formData?.title}
@@ -147,9 +157,9 @@ export default function ViewForm() {
 
             <main className="flex flex-col justify-center items-center text-left px-10 w-full">
                 <div className='lg:w-3/4'>
-                    {formData.metadata.map((x) => renderElement(x, formData?.styles))}
+                    {formData?.metadata.map((x) => renderElement(x, formData?.styles))}
                 </div>
-                <button onClick={() => submit()} style={formData?.styles?.button} className='text-3xl px-10 py-2 text-center'>Submit</button>
+                <button onClick={() => console.log(formOut)} style={formData?.styles?.button} className='text-3xl px-10 py-2'>Submit</button>
             </main>
             <br /><br />
         </div>
@@ -157,3 +167,5 @@ export default function ViewForm() {
 
     return mainBody;
 }
+
+export default ViewForm;
