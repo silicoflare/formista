@@ -3,6 +3,8 @@ from pymongo import MongoClient
 import os
 import dotenv
 
+dotenv.load_dotenv()
+
 app = Flask(__name__)
 
 MONGODB_URI = f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority'
