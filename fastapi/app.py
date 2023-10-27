@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.requests import Request
@@ -8,30 +8,40 @@ from datetime import datetime
 import os
 import dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
-
+from fastapi import FastAPI, Depends, HTTPException, status
 
 dotenv.load_dotenv()
 
-app = FastAPI(title='Formista API')
+class MongoDB:
+    def __init__(self, db_url: str, db_name: str):
+        self.db_url = db_url
+        self.db_name = db_name
+        self.client = None
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost", "http://localhost:3000", "*"] ,
-    allow_credentials=True,
-    allow_methods=["*"],  
-    allow_headers=["*"],  
+    async def connect(self):
+        self.client = AsyncIOMotorClient(self.db_url, ssl=True)
+        return self.client[self.db_name]
+
+app = FastAPI(title='Formista API')
+mongodb_instance = MongoDB(
+    db_url=f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority',
+    db_name='formista'
 )
 
-MONGO_DB_URL = f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
-MONGO_DB_NAME = 'formista'
+# Middleware for CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost", "http://localhost:3000", "*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+# MongoDB dependency
+async def get_mongo_db():
+    db = await mongodb_instance.connect()
+    yield db
 
-@app.on_event("startup")
-async def startup_db_client():
-    app.state.mongodb_client = AsyncIOMotorClient(MONGO_DB_URL, ssl=True)
-    app.state.mongodb = app.state.mongodb_client[MONGO_DB_NAME]
-
-_temp_ = {}
 
 
 def get_hash(password):
@@ -84,8 +94,9 @@ async def respond(formID:str, resp:dict):
 
 
 @app.get('/{formID}')
-async def get_form(formID):
-    formdata = await app.state.mongodb.forms.find_one({ "formID": formID })
+async def get_form(formID, db=Depends(get_mongo_db)):
+    forms = db['forms']
+    formdata = await forms.find_one({ "formID": formID })
     del formdata['_id']
     return formdata if formdata != None else { 'message': 'Form not found', 'formID': formID, status: 404 }
 
