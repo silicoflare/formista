@@ -77,7 +77,7 @@ export default function ViewForm() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:8001/${formID}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/${formID}`);
                 const data = await response.json();
                 setFormData(data);
                 // console.log(data);

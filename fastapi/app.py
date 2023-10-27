@@ -7,7 +7,7 @@ from hashlib import sha256
 from datetime import datetime
 import os
 import dotenv
-from motor.motor_asyncio import AsyncIOMotorClients
+from motor.motor_asyncio import AsyncIOMotorClient
 
 
 dotenv.load_dotenv()
@@ -22,13 +22,13 @@ app.add_middleware(
     allow_headers=["*"],  
 )
 
-MONGO_DB_URL = f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority'
+MONGO_DB_URL = f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
 MONGO_DB_NAME = 'formista'
 
 
 @app.on_event("startup")
 async def startup_db_client():
-    app.mongodb_client = AsyncIOMotorClient(MONGO_DB_URL)
+    app.mongodb_client = AsyncIOMotorClient(MONGO_DB_URL, ssl=True)
     app.mongodb = app.mongodb_client[MONGO_DB_NAME]
 
 _temp_ = {}
@@ -37,8 +37,6 @@ _temp_ = {}
 def get_hash(password):
     return sha256(password.encode('utf-8')).hexdigest()
 
-
-@app.on_event()
 
 
 @app.get('/')
