@@ -28,8 +28,8 @@ MONGO_DB_NAME = 'formista'
 
 @app.on_event("startup")
 async def startup_db_client():
-    app.mongodb_client = AsyncIOMotorClient(MONGO_DB_URL, ssl=True)
-    app.mongodb = app.mongodb_client[MONGO_DB_NAME]
+    app.state.mongodb_client = AsyncIOMotorClient(MONGO_DB_URL, ssl=True)
+    app.state.mongodb = app.state.mongodb_client[MONGO_DB_NAME]
 
 _temp_ = {}
 
@@ -85,7 +85,7 @@ async def respond(formID:str, resp:dict):
 
 @app.get('/{formID}')
 async def get_form(formID):
-    formdata = await app.mongodb.forms.find_one({ "formID": formID })
+    formdata = await app.state.mongodb.forms.find_one({ "formID": formID })
     del formdata['_id']
     return formdata if formdata != None else { 'message': 'Form not found', 'formID': formID, status: 404 }
 
