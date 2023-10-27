@@ -78,7 +78,7 @@ export default function PreviewForm() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:8001/gettemp/${formID}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/gettemp/${formID}`);
                 const data = await response.json();
                 setFormData(data);
                 console.log(data);
@@ -112,13 +112,13 @@ export default function PreviewForm() {
 
     if (formData) {
         document.title = `${formData?.title} - Formista`;
-        const docTitle = document.title;
-        window.addEventListener("blur", function () {
-            document.title = "Please come back :_)";
-        });
-        window.addEventListener("focus", function () {
-            document.title = docTitle;
-        });
+        // const docTitle = document.title;
+        // window.addEventListener("blur", function () {
+        //     document.title = "Please come back :_)";
+        // });
+        // window.addEventListener("focus", function () {
+        //     document.title = docTitle;
+        // });
 
         addFonts(formData?.fontImports);
         setBodyStyles(formData?.styles?.body);
@@ -132,16 +132,16 @@ export default function PreviewForm() {
 
     const mainBody = (formData &&
         <div className="flex flex-col justify-center text-left">
-            <header className="p-5 lg:p-10 text-left text-2xl lg:text-5xl" style={formData?.styles?.header}>
+            <header className="p-5 lg:p-10 text-left text-3xl lg:text-5xl" style={formData?.styles?.header}>
                 {formData?.title}
             </header>
             <br /><br />
 
-            <main className="flex flex-col justify-center items-center text-left px-10 w-full">
-                <div className='lg:w-3/4'>
+            <main className="flex flex-col justify-center items-center text-left px-4 lg:px-10 w-full">
+                <div className='lg:w-1/2'>
                     {formData.metadata.map((x) => renderElement(x, formData?.styles))}
                 </div>
-                <button onClick={() => goBack()} style={formData?.styles?.button} className='text-3xl px-10 py-2 text-center'>Go Back</button>
+                <button onClick={() => goBack()} style={formData?.styles?.button} className='text-xl px-10 py-2 text-center'>Go Back</button>
             </main>
             <br /><br />
         </div>

@@ -19,7 +19,7 @@ function Dropdown({ id, label, required, options, styles, children, handleOut })
     return (
         <>
             <label
-                className="text-3xl"
+                className="form-label"
                 htmlFor={id}
                 style={styles[0]}
             >
@@ -28,7 +28,7 @@ function Dropdown({ id, label, required, options, styles, children, handleOut })
             <br />
             <select
                 id={id}
-                className="p-2 w-full text-xl"
+                className="form-textbox"
                 name={id}
                 required={required}
                 style={styles[1]}
@@ -38,7 +38,7 @@ function Dropdown({ id, label, required, options, styles, children, handleOut })
                     <option
                         key={x.value}
                         value={x.value}
-                        className="p-2 w-full text-xl"
+                        className="form-textbox"
                     >
                         {x.name}
                     </option>

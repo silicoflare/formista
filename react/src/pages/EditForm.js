@@ -28,7 +28,7 @@ export default function EditForm() {
     }, [formData]);
 
     useEffect(() => {
-        fetch(`http://localhost:8001/gettemp/${formID}`)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/gettemp/${formID}`)
             .then(response => {
                 if(response.status === 404)
                     throw new Error('Not found!')
@@ -44,7 +44,7 @@ export default function EditForm() {
             })
             .catch(error => {
                 console.error(error);
-                fetch(`http://localhost:8001/${formID}`)
+                fetch(`${process.env.REACT_APP_BACKEND_URL}/${formID}`)
                     .then(response => {
                         if (!response.ok)
                             throw new Error(`HTTP error with status: ${response.status}`);
@@ -62,19 +62,21 @@ export default function EditForm() {
     }, [formID]);
 
     return (formData &&
-        <div className="flex flex-col justify-top w-screen h-screen items-start p-10 text-[--two] font-montserrat">
+        <div className="flex flex-col justify-top w-screen h-screen items-start p-5 lg:p-10 text-[--two] font-montserrat">
             <h1 className="text-4xl lg:text-6xl w-full text-center font-[--three] young-serif">{title}</h1>
             <br /><br />
 
             {!isPass && <div className="w-full p-3 flex flex-row justify-between items-center text-3xl">
-                <div>
-                    <span className="text-[--three]">Password:</span>&nbsp;
-                    <input type="password" id="pass" className="p-2 bg-[--four] text-xl focus:outline-none focus:ring-2 focus:ring-[--four]" />&nbsp;
-                    <button className="px-5 py-2 text-xl bg-[--one] text-white focus:outline-none focus:ring-[#317a63]" onClick={init}>Submit</button>
+                <div className='flex flex-col lg:flex-row w-full items-start lg:items-middle'>
+                    <span className="text-[--three]">Password:</span>
+                    <span className="hidden lg:inline">&nbsp;</span>
+                    <input type="password" id="pass" className="p-2 bg-[--four] text-xl focus:outline-none focus:ring-2 focus:ring-[--four] w-full lg:w-fit" />
+                    &nbsp;
+                    <button className="px-5 py-2 text-xl bg-[--one] text-white focus:outline-none focus:ring-[#317a63] w-full lg:w-fit" onClick={init}>Submit</button>
                 </div>
             </div>}
             <br /><br />
-            {isPass && <FormEditor formData={formData} setTitle={setTitle} formID={formID} />}
+            {isPass && <FormEditor formData={formData} title={title} setTitle={setTitle} formID={formID} />}
         </div>
     );
 }

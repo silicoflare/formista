@@ -19,13 +19,13 @@ function Textbox({ id, placeholder, required, styles, children, handleOut }) {
 
     return (
         <>
-            <label className="text-3xl" htmlFor={id} style={styles[0]}>
+            <label className="form-label" htmlFor={id} style={styles[0]}>
                 {children}
             </label>
 
             <input
                 type="text"
-                className="p-2 w-full text-xl"
+                className="form-textbox"
                 required={required}
                 placeholder={placeholder}
                 id={id}

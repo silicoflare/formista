@@ -33,7 +33,7 @@ export default function Checkbox({ id, required, options, icon, colors, styles, 
     return (
         <div key={id}>
             <label
-                className="text-3xl"
+                className="form-label"
                 htmlFor={id}
                 style={styles}>
                 {children}

@@ -32,7 +32,7 @@ export default function Rating({ id, required, count, icon, colors, styles, chil
     return (
         <div key={id} onMouseLeave={() => setHigh(value)}>
             <label 
-            className="text-3xl"
+            className="form-label"
             htmlFor={ id } 
             style={ styles }>
                 { children }

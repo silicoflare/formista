@@ -6,6 +6,7 @@ import FormStuff from "./pages/FormStuff";
 import ViewForm from "./pages/ViewForm";
 import EditForm from "./pages/EditForm";
 import PreviewForm from "./pages/PreviewForm";
+import CreateForm from "./pages/CreateForm";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
                 </Route>
+                <Route path="/new" element={ <CreateForm/> }/>
                 <Route path="/:formID" element={ <FormStuff/> }>
                     <Route index element={<ViewForm />} />
                     <Route path="edit" element={ <EditForm/> } />

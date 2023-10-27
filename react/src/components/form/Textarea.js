@@ -19,7 +19,7 @@ function Textarea({ id, placeholder, required, styles, children, handleOut })   
     return (
         <>
             <label 
-                className="text-3xl"
+                className="form-label"
                 htmlFor={ id } 
                 style={ styles[0] }
             >
@@ -27,7 +27,7 @@ function Textarea({ id, placeholder, required, styles, children, handleOut })   
             </label>
 
             <textarea 
-                className="p-2 w-full text-xl"
+                className="form-textbox"
                 rows="5"
                 required={ required } 
                 placeholder={ placeholder } 

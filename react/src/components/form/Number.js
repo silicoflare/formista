@@ -19,7 +19,7 @@ function Number({ id, placeholder, required, range, styles, children, handleOut 
     return (
         <>
             <label 
-                className="text-3xl"
+                className="form-label"
                 htmlFor={ id } 
                 style={ styles[0] }
             >
@@ -30,7 +30,7 @@ function Number({ id, placeholder, required, range, styles, children, handleOut 
                 type="number" 
                 min={ range.min }
                 max={ range.max }
-                className="p-2 w-full text-xl"
+                className="form-textbox"
                 required={ required } 
                 placeholder={ placeholder } 
                 id={ id } 

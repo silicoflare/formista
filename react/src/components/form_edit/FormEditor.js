@@ -4,7 +4,7 @@ import FormTodo from "./FormTodo";
 import StyleList from "./StyleList";
 import ElementList from './ElementList';
 
-export default function FormEditor({ formData, setTitle, formID }) {
+export default function FormEditor({ formData, title, setTitle, formID }) {
     const [data, setData] = useState({});
     const [imports, setImports] = useState([]);
     const [styleData, setStyleData] = useState({});
@@ -12,16 +12,21 @@ export default function FormEditor({ formData, setTitle, formID }) {
 
     const nav = useNavigate();
 
+    useEffect(() => {
+        setData(() => formData);
+    }, [formData]);
+
+    useEffect(() => {
+        setData(oldData => {
+            return {
+                ...oldData,
+                title: title
+            }
+        });
+    }, [title]);
 
     function changeTitle(value) {
-        setData(prevData => {
-            const updatedData = {
-                ...prevData,
-                title: value
-            };
-            setTitle(() => value !== '' ? updatedData.title : ' ');
-            return updatedData;
-        });
+        setTitle(() => value !== '' ? value : ' ');
     }
 
     function changePassword(value)  {
@@ -47,7 +52,7 @@ export default function FormEditor({ formData, setTitle, formID }) {
                 })
             };
 
-            const response = await fetch(`http://localhost:8001/${formID}/edit`, options);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/${formID}/edit`, options);
 
             if (!response.ok) 
                 throw new Error(`HTTP error with status: ${response.status}`);
@@ -70,17 +75,17 @@ export default function FormEditor({ formData, setTitle, formID }) {
         switch (key) {
             case 'password':
                 return (
-                    <div className="bg-[--three] p-5 w-3/4 space-y-4" key={key}>
+                    <div className="edit-container" key={key}>
                         <span className="text-white text-3xl">Password:</span><br />
-                        <input type="text" id="title" className="p-2 bg-[--four] text-white text-xl focus:outline-none focus:ring-2 focus:ring-[--one]" value={value} onChange={(e) => changePassword(e.target.value)} />
+                        <input type="text" id="title" className="edit-textbox" value={value} onChange={(e) => changePassword(e.target.value)} />
                     </div>
                 );
 
             case 'title':
                 return (
-                    <div className="bg-[--three] p-5 w-3/4 space-y-4" key={key}>
+                    <div className="edit-container" key={key}>
                         <span className="text-white text-3xl">Title:</span><br />
-                        <input type="text" id="title" className="p-2 bg-[--four] text-white text-xl focus:outline-none focus:ring-2 focus:ring-[--one]" value={value} onChange={(e) => changeTitle(e.target.value)} />
+                        <input type="text" id="title" className="edit-textbox" value={value} onChange={(e) => changeTitle(e.target.value)} />
                     </div>
                 );
 
@@ -98,25 +103,6 @@ export default function FormEditor({ formData, setTitle, formID }) {
         }
     }
 
-
-    function getFormID() {
-        let formID = '';
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 1; i <= 10; i++)
-            formID += chars.charAt(Math.floor(Math.random() * chars.length));
-        return formID;
-    }
-
-    useEffect(() => {
-        if (formData['formID'] === '') {
-            setData({ "formID": getFormID() });
-        }
-        else {
-            setData(formData);
-        }
-    }, [formData]);
-
-
     async function previewForm() {
         try {
             const options = {
@@ -130,7 +116,7 @@ export default function FormEditor({ formData, setTitle, formID }) {
                 })
             };
 
-            const response = await fetch(`http://localhost:8001/storetemp/${formID}`, options);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/storetemp/${formID}`, options);
 
             if (!response.ok) 
                 throw new Error(`HTTP error with status: ${response.status}`);

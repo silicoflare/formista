@@ -120,3 +120,30 @@
 body    {
     background-color: var(--five);
 }
+
+
+
+/* APPLY DIRECTIVES */
+.form-label {
+    @apply text-xl;
+}
+
+.form-textbox   {
+    @apply p-2 w-full text-lg;
+}
+
+.edit-container {
+    @apply bg-[--three] p-5 w-full lg:w-3/4 space-y-4;
+}
+
+.edit-textbox   {
+    @apply p-2 bg-[--four] text-white text-xl focus:outline-none focus:ring-2 focus:ring-[--one] w-full lg:w-1/3;
+}
+
+.edit-drop  {
+    @apply p-2 bg-[--four] text-white text-lg font-mono w-full lg:w-4/5 focus:outline-none focus:ring-2 focus:ring-[--one];
+}
+
+.edit-dropopt  {
+    @apply p-2 bg-[--four] text-white text-sm lg:text-xl font-mono w-1/5 focus:outline-none focus:ring-2 focus:ring-[--one];
+}

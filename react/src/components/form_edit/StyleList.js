@@ -21,7 +21,7 @@ export default function StyleList({ data, setData, styleData, setStyleData }) {
 
 
     return (
-        <div className="w-3/4 space-y-4">
+        <div className="flex flex-col justify-start items-center w-full space-y-4">
             {Object.entries(data.styles).map(([key, value]) => <FormStyles element={key} key={key} data={data} setData={setData} setStyleData={setStyleData}>{styleMaps[key]}</FormStyles>
             )}
         </div>

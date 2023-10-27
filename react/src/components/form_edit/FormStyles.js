@@ -58,10 +58,10 @@ export default function FormStyles({ element, data, setData, setStyleData, child
     }
 
     return (
-        <div className="bg-[--three] p-5 w-full space-y-4">
+        <div className="edit-container">
             <span className="text-white text-3xl">{`${children} Styles`}</span><br/>
-            <select className="fonts p-2 bg-[--four] text-white text-lg font-mono w-4/5 focus:outline-none focus:ring-2 focus:ring-[--one]" onChange={(e) => select(() => e.target.value)}>
-                { drop.map((x) => <option key={x} value={x} readOnly={true}>{x}</option>) }
+            <select className="edit-drop" onChange={(e) => select(() => e.target.value)}>
+                { drop.map((x) => <option key={x} value={x} readOnly={true} className="edit-dropopt">{x}</option>) }
             </select>
             <button className="bg-[--one] p-2 text-white focus:outline-none focus:ring-2 mx-2 focus:ring-[--five]" onClick={() => addStyle(selected)}>
                 + Add property
