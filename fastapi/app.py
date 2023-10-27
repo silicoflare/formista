@@ -7,6 +7,9 @@ from hashlib import sha256
 from datetime import datetime
 import os
 import dotenv
+from motor.motor_asyncio import AsyncIOMotorClients
+
+
 dotenv.load_dotenv()
 
 app = FastAPI(title='Formista API')
@@ -19,15 +22,23 @@ app.add_middleware(
     allow_headers=["*"],  
 )
 
+MONGO_DB_URL = f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority'
+MONGO_DB_NAME = 'formista'
 
-client = MongoClient(f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority')
-form_coll = client['formista']['forms']
+
+@app.on_event("startup")
+async def startup_db_client():
+    app.mongodb_client = AsyncIOMotorClient(MONGO_DB_URL)
+    app.mongodb = app.mongodb_client[MONGO_DB_NAME]
 
 _temp_ = {}
 
 
 def get_hash(password):
     return sha256(password.encode('utf-8')).hexdigest()
+
+
+@app.on_event()
 
 
 @app.get('/')
@@ -42,12 +53,13 @@ async def ping():
 
 @app.get('/exists')
 async def exists(formID):
-    return str(form_coll.find_one({ "formID": formID }) != None)
+    return str( app.mongodb.forms.find_one({ "formID": formID }) != None)
 
 
 @app.post('/new')
 async def new_form(data: dict):
-    if form_coll.find_one({ "formID": data.get('formID') }):
+    data = await app.mongodb.forms.find_one({ "formID": data.get('formID') })
+    if data:
         return {
             "message": 'Form already exists',
             "formID": data.get('formID')
@@ -55,7 +67,7 @@ async def new_form(data: dict):
     else:
         # data['password'] = get_hash(data['password'])
         data['responses'] = []
-        form_coll.insert_one(data)
+        app.mongodb.forms.insert_one(data)
         return {
             "message": 'Created new form',
             "formID": data.get('formID')
@@ -65,7 +77,7 @@ async def new_form(data: dict):
 @app.post('/respond/{formID}')
 async def respond(formID:str, resp:dict):
     resp["timestamp"] = datetime.utcnow()
-    form_coll.update_one(
+    app.mongodb.forms.update_one(
         {"formID": formID},
         {"$push": {"responses": resp}}
     )
@@ -75,7 +87,7 @@ async def respond(formID:str, resp:dict):
 
 @app.get('/{formID}')
 async def get_form(formID):
-    formdata = form_coll.find_one({ "formID": formID })
+    formdata = await app.mongodb.forms.find_one({ "formID": formID })
     del formdata['_id']
     return formdata if formdata != None else { 'message': 'Form not found', 'formID': formID, status: 404 }
 
@@ -103,7 +115,7 @@ async def get_temp(formID:str):
 async def edit_form(formID:str, data:dict):
     if data.get('responses'):
         del data['responses']
-    form_coll.update_one({ 'formID': formID }, {
+    app.mongodb.forms.update_one({ 'formID': formID }, {
         "$set": data
     })
     if _temp_.get(formID):
