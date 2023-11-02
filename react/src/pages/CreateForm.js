@@ -62,6 +62,7 @@ export default function CreateForm() {
         ]
     }
 
+    sessionStorage.setItem("isNew", "true");
 
     const formID = getFormID();
     basicData['formID'] = formID;

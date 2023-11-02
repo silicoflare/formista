@@ -40,6 +40,16 @@ export default function FormEditor({ formData, title, setTitle, formID }) {
 
     async function submitData(e) {
         e.preventDefault();
+
+        let url = '';
+        if(sessionStorage.getItem('isNew') === 'true')
+        {
+            url = `${process.env.REACT_APP_BACKEND_URL}/new`;
+            sessionStorage.removeItem('isNew');
+        }
+        else
+            url = `${process.env.REACT_APP_BACKEND_URL}/${formID}/edit`;
+
         try {
             const options = {
                 method: 'POST',
@@ -52,7 +62,7 @@ export default function FormEditor({ formData, title, setTitle, formID }) {
                 })
             };
 
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/${formID}/edit`, options);
+            const response = await fetch(url, options);
 
             if (!response.ok) 
                 throw new Error(`HTTP error with status: ${response.status}`);

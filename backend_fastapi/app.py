@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.requests import Request
@@ -7,7 +7,6 @@ from hashlib import sha256
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-from fastapi import FastAPI, Depends, HTTPException, status
 
 load_dotenv()
 
@@ -21,7 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MONGODB_URI = 'mongodb://localhost:27017/'
+MONGODB_URI = f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority'
 client = MongoClient(MONGODB_URI)
 forms = client['formista']['formdata']
 
