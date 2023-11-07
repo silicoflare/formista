@@ -25,8 +25,21 @@ MONGODB_URI = f'mongodb+srv://silicoflare:m89jTPdO2M7noV0F@silicoverse.aoepe6c.m
 client = MongoClient(MONGODB_URI)
 forms = client['formista']['formdata']
 
+try:
+    client.admin.command('ping')
+    print("looks good")
+except Exception as e:
+    print(e)
+
 _temp_ = {}
 
+@app.get("/status")
+def status():
+    try:
+        client.admin.command('ping')
+        return "looks good"
+    except Exception as e:
+        return str(e)
 
 @app.get('/')
 async def index():
