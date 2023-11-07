@@ -20,7 +20,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MONGODB_URI = f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority'
+# MONGODB_URI = f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority'
+MONGODB_URI = f'mongodb+srv://silicoflare:m89jTPdO2M7noV0F@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority'
 client = MongoClient(MONGODB_URI)
 forms = client['formista']['formdata']
 
