@@ -81,7 +81,7 @@ export default function PreviewForm() {
                 const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/gettemp/${formID}`);
                 const data = await response.json();
                 setFormData(data);
-                console.log(data);
+                // console.log(data);
             } catch (error) {
                 console.error(error);
             }

@@ -14,7 +14,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost", "http://localhost:3000", "https://formista.vercel.app" "*"],
+    allow_origins=["http://localhost", "http://localhost:3000", "https://formista.vercel.app", "*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -82,6 +82,10 @@ async def respond(formID:str, resp:dict):
     )
     return { "message": 'Form submitted!' }
 
+
+@app.get('/favicon.ico')
+async def get_favicon():
+    return 404
 
 
 @app.get('/{formID}')
