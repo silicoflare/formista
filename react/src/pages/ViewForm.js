@@ -124,7 +124,7 @@ export default function ViewForm() {
             body: JSON.stringify(formOut)
           };
           
-          fetch(`http://localhost:8001/respond/${formID}`, options)
+          fetch(`${process.env.REACT_APP_BACKEND_URL}/respond/${formID}`, options)
             .then(response => response.json())
             .then(response => alert(response['message']))
             .catch(err => console.error(err));
