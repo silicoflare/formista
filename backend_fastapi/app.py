@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
+print(os.getenv('MONGODB_URL'))
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,13 +21,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MONGODB_URI = f'mongodb+srv://silicoflare:{os.getenv("MONGODB_PASS")}@silicoverse.aoepe6c.mongodb.net/?retryWrites=true&w=majority'
+MONGODB_URI = os.getenv('MONGODB_URL')
 client = MongoClient(MONGODB_URI)
-forms = client['formista']['formdata']
+forms = client['formista']['forms']
 
 try:
     client.admin.command('ping')
-    print("looks good")
+    # print("looks good")
 except Exception as e:
     print(e)
 
@@ -85,14 +86,18 @@ async def respond(formID:str, resp:dict):
 
 @app.get('/favicon.ico')
 async def get_favicon():
-    return 404
+    return 403
 
 
 @app.get('/{formID}')
 async def get_form(formID):
-    formdata = dict(forms.find_one({ "formID": formID }))
-    del formdata['_id']
-    return formdata if formdata != None else { 'message': 'Form not found', 'formID': formID, status: 404 }
+    formdata = forms.find_one({ "formID": formID })
+    if formdata:
+        formdata = dict(formdata)
+        del formdata['_id']
+        return formdata
+    else:
+        return { 'message': 'Form not found', 'formID': formID, status: 404 }
 
 
 
@@ -102,7 +107,7 @@ async def store_temp(formID:str, data:dict):
     if data.get('responses'):
         del data['responses']
     _temp_[formID] = data
-    print(_temp_[formID])
+    # print(_temp_[formID])
     return {
         'message': 'Stored successfully',
         'formID': formID

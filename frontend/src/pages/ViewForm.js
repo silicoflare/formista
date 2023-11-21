@@ -9,6 +9,7 @@ import Dropdown from '../components/form/Dropdown';
 import Radio from '../components/form/Radio';
 import Checkbox from '../components/form/Checkbox';
 import Rating from '../components/form/Rating';
+import Alert from '../components/Alert';
 
 
 
@@ -17,6 +18,8 @@ export default function ViewForm() {
 
     const [formData, setFormData] = useState(null);
     const [formOut, setFormOut] = useState({});
+
+    const [ isShown, setIsShown ] = useState(false);
 
     function addFonts(styleData) {
         // console.log(styleData);
@@ -89,7 +92,7 @@ export default function ViewForm() {
     }, [formID]);
 
     useEffect(() => {
-        if(formData)
+        if (formData)
             setFormOut(() => {
                 const init = {}
                 const defaultVals = {
@@ -117,22 +120,28 @@ export default function ViewForm() {
     }
 
 
-    function submit()   {
+    async function submit() {
         const options = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8'},
+            headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
             body: JSON.stringify(formOut)
-          };
-          
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/respond/${formID}`, options)
+        };
+
+        let resp = null;
+
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/respond/${formID}`, options)
             .then(response => response.json())
-            .then(response => alert(response['message']))
+            .then(response => resp = response)
             .catch(err => console.error(err));
+
+        if(resp)
+            setIsShown(() => true);
     }
 
 
     const mainBody = (formData &&
         <div className="flex flex-col justify-center text-left">
+            <Alert message='Form submitted successfully!' duration={3} isShown={isShown} setIsShown={setIsShown} />
             <header className="p-5 lg:p-10 text-left text-3xl lg:text-5xl" style={formData?.styles?.header}>
                 {formData?.title}
             </header>
