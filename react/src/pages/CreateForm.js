@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function CreateForm() {
     const nav = useNavigate();
-
+    console.log(process.env.REACT_APP_BACKEND_URL);
     function getFormID() {
         let formID = '';
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -74,7 +74,7 @@ export default function CreateForm() {
     };
 
     fetch(`${process.env.REACT_APP_BACKEND_URL}/storetemp/${formID}`, options)
-        .then(response => response.json())
+            .then(response => response.json())
         .then(data => {
             nav(`../${formID}/edit`);
         });
