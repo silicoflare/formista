@@ -21,6 +21,7 @@ export default function EditForm() {
     }
 
     useEffect(() => {
+        document.body.style.backgroundColor = '#c9d2c6';
         if(formData)    {
             setTitle(() => formData.title);
             document.title = `Edit ${formData.title} - Formista`;
