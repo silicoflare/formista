@@ -58,6 +58,7 @@ async def exists(formID):
 @app.post('/new')
 async def new_form(data: dict):
     data['responses'] = []
+    del _temp_[data['formID']]
     forms.insert_one(data)
     return {
         "message": 'Created new form',
