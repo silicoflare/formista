@@ -402,7 +402,7 @@ export default function FormElement({ data, elementList, type, index, setElement
                         </span>
                         <span className="w-full col-span-3">
                             <span className="text-white text-lg">Color:&nbsp;</span>
-                            <input type="text" className="fonts p-2 bg-[--four] text-white text-md font-mono w-2/3 focus:outline-none focus:ring-2 focus:ring-[--one]" value={elementList[index]?.colors?.no || ''} onChange={(e) => changeValue('color', e.target.value, 'no')} />
+                            <input type="text" className="fonts p-2 bg-[--four] text-white text-md font-mono w-2/3 focus:outline-none focus:ring-2 focus:ring-[--one]" value={elementList[index]?.color?.no || ''} onChange={(e) => changeValue('color', e.target.value, 'no')} />
                         </span>
                     </span>
                     <span className="grid grid-cols-7 items-center my-2 w-full text-center">
@@ -413,7 +413,7 @@ export default function FormElement({ data, elementList, type, index, setElement
                         </span>
                         <span className="w-full col-span-3">
                             <span className="text-white text-lg">Color:&nbsp;</span>
-                            <input type="text" className="fonts p-2 bg-[--four] text-white text-md font-mono w-2/3 focus:outline-none focus:ring-2 focus:ring-[--one]" value={elementList[index]?.colors?.yes || ''} onChange={(e) => changeValue('color', e.target.value, 'yes')} />
+                            <input type="text" className="fonts p-2 bg-[--four] text-white text-md font-mono w-2/3 focus:outline-none focus:ring-2 focus:ring-[--one]" value={elementList[index]?.color?.yes || ''} onChange={(e) => changeValue('color', e.target.value, 'yes')} />
                         </span>
                     </span>
                     <button className="bg-[--one] p-2 text-white focus:outline-none focus:ring-2 focus:ring-[--five]" onClick={() => addOption()} title='Add option'>
