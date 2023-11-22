@@ -11,7 +11,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
-print(os.getenv('MONGODB_URL'))
 
 app.add_middleware(
     CORSMiddleware,
@@ -58,20 +57,12 @@ async def exists(formID):
 
 @app.post('/new')
 async def new_form(data: dict):
-    data = await forms.find_one({ "formID": data.get('formID') })
-    if data:
-        return {
-            "message": 'Form already exists',
-            "formID": data.get('formID')
-        }
-    else:
-        # data['password'] = get_hash(data['password'])
-        data['responses'] = []
-        forms.insert_one(data)
-        return {
-            "message": 'Created new form',
-            "formID": data.get('formID')
-        }
+    data['responses'] = []
+    forms.insert_one(data)
+    return {
+        "message": 'Created new form',
+        "formID": data.get('formID')
+    }
 
 
 @app.post('/respond/{formID}')
