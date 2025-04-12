@@ -1,0 +1,36 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: formista_db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - db_data:/data/db
+    networks:
+      - formista
+
+  minio:
+    image: minio/minio:latest
+    container_name: formista_storage
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password
+    command: server /data --console-address ":9001"
+    volumes:
+      - storage_data:/data
+    networks:
+      - formista
+
+networks:
+  formista:
+    driver: bridge
+
+volumes:
+  db_data:
+  storage_data:
